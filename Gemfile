@@ -17,6 +17,9 @@ gem 'webpacker', '~> 5.x'
 # gem 'mini_racer', platforms: :ruby
 gem 'kaminari'
 
+#Use Stripe for receiving payments
+gem 'stripe'
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks (not using for React front-end)
