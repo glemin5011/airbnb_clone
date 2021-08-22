@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     get '/authenticated' => 'sessions#authenticated'
     get '/properties/:id/bookings' => 'bookings#get_property_bookings'
 
+    post '/charges/mark_complete' => 'charges#mark_complete'
+
   end
 
 end
