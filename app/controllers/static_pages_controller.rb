@@ -20,4 +20,8 @@ class StaticPagesController < ApplicationController
   def trips
     render 'trips'
   end
+
+  def host
+    render 'host'
+  end
 end

@@ -20,6 +20,11 @@ const Layout = (props) => {
                 Trips
               </a>
             </li>
+            <li>
+              <a className="nav-link" href="/host">
+                Host
+              </a>
+            </li>
           </ul>
         </div>
       </nav>

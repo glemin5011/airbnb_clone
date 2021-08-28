@@ -1,0 +1,73 @@
+// home.jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import Layout from "@src/layout";
+import { handleErrors } from "./fetchHelper";
+
+import "./host.scss";
+
+class Host extends React.Component {
+  state = {
+    properties: [],
+    loading: true,
+  };
+
+  componentDidMount() {
+    fetch(`/api/myproperties`)
+      .then(handleErrors)
+      .then((data) => {
+        this.setState({
+          properties: data.properties,
+          loading: false,
+        });
+      });
+  }
+
+  render() {
+    const { properties, loading } = this.state;
+    return (
+      <Layout>
+        <div className="container pt-4">
+          <h4 className="mb-1">My properties</h4>
+          <p className="text-secondary mb-3">
+            Find guests for your properties all around the world
+          </p>
+          <div className="row">
+            {properties.map((property) => {
+              return (
+                <div key={property.id} className="col-6 col-lg-4 mb-4 property">
+                  <a
+                    href={`/property/${property.id}`}
+                    className="text-body text-decoration-none"
+                  >
+                    <div
+                      className="property-image mb-1 rounded"
+                      style={{ backgroundImage: `url(${property.image_url})` }}
+                    />
+                    <p className="text-uppercase mb-0 text-secondary">
+                      <small>
+                        <b>{property.city}</b>
+                      </small>
+                    </p>
+                    <h6 className="mb-0">{property.title}</h6>
+                    <p className="mb-0">
+                      {" "}
+                      <small>${property.price_per_night} USD / night</small>
+                    </p>
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  ReactDOM.render(
+    <Host />,
+    document.body.appendChild(document.createElement("div"))
+  );
+});
