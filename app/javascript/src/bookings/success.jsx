@@ -61,7 +61,7 @@ class Success extends React.Component {
             <div className="col-12 my-4">
               <div className="card-body border">
                 <h3 className="card-title text-center">
-                  Booking #{id} successful!
+                  Your booking #{booking.id}
                 </h3>
                 <h5 className="my-4">
                   Get ready for your trip to {property.city} ({start_date} -{" "}

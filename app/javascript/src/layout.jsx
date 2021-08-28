@@ -15,6 +15,11 @@ const Layout = (props) => {
                 Home
               </a>
             </li>
+            <li>
+              <a className="nav-link" href="/trips">
+                Trips
+              </a>
+            </li>
           </ul>
         </div>
       </nav>

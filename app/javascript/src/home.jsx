@@ -65,7 +65,6 @@ class Home extends React.Component {
                       className="property-image mb-1 rounded"
                       style={{ backgroundImage: `url(${property.image_url})` }}
                     />
-                    {console.log(property.image)}
                     <p className="text-uppercase mb-0 text-secondary">
                       <small>
                         <b>{property.city}</b>
