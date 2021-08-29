@@ -8,57 +8,84 @@ import "./host.scss";
 
 class Host extends React.Component {
   state = {
-    properties: [],
+    bookings: [],
     loading: true,
   };
 
   componentDidMount() {
-    fetch(`/api/myproperties`)
+    fetch(`api/host/bookings`)
       .then(handleErrors)
       .then((data) => {
         this.setState({
-          properties: data.properties,
+          bookings: data.bookings,
           loading: false,
         });
       });
   }
 
   render() {
-    const { properties, loading } = this.state;
+    const { bookings, loading } = this.state;
     return (
       <Layout>
         <div className="container pt-4">
-          <h4 className="mb-1">My properties</h4>
+          <h4 className="mb-1">Upcoming bookings at my properties</h4>
           <p className="text-secondary mb-3">
             Find guests for your properties all around the world
           </p>
-          <div className="row">
-            {properties.map((property) => {
-              return (
-                <div key={property.id} className="col-6 col-lg-4 mb-4 property">
-                  <a
-                    href={`/property/${property.id}`}
-                    className="text-body text-decoration-none"
-                  >
-                    <div
-                      className="property-image mb-1 rounded"
-                      style={{ backgroundImage: `url(${property.image_url})` }}
-                    />
-                    <p className="text-uppercase mb-0 text-secondary">
-                      <small>
-                        <b>{property.city}</b>
-                      </small>
-                    </p>
-                    <h6 className="mb-0">{property.title}</h6>
-                    <p className="mb-0">
-                      {" "}
-                      <small>${property.price_per_night} USD / night</small>
-                    </p>
-                  </a>
-                </div>
-              );
-            })}
-          </div>
+          {loading === true ? (
+            <p>Loading...</p>
+          ) : (
+            <div className="row">
+              <div className="col list-group">
+                {bookings.map((booking) => {
+                  return (
+                    <a
+                      href={`property/${booking.property_id}`}
+                      key={booking.id}
+                      class="list-group-item list-group-item-action"
+                    >
+                      <div className="row">
+                        <div
+                          className="col-3 property-image mb-1 rounded"
+                          style={{
+                            backgroundImage: `url(${booking.image_url})`,
+                          }}
+                        />
+                        <div className="col-9">
+                          <h6>
+                            {booking.title} <small>({booking.start_date}</small>{" "}
+                            - <small>{booking.end_date})</small>
+                          </h6>
+                          <p>
+                            Payment status:{" "}
+                            {booking.paid === true ? (
+                              <small className="ml-1 text-success">
+                                <b>Paid</b>
+                              </small>
+                            ) : (
+                              <small className="ml-1 text-danger">
+                                <b>Pending</b>
+                              </small>
+                            )}
+                          </p>
+                          <p>
+                            <b>
+                              Total:{" "}
+                              {booking.charges.length !== 0 ? (
+                                <span>${booking.charges[0].amount}</span>
+                              ) : (
+                                <span>N/A</span>
+                              )}
+                            </b>
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </Layout>
     );

@@ -50,12 +50,15 @@ module Api
             session = Session.find_by(token: token)
             return render json: { error: 'user is not logged in'}, status: :unauthorized if !session
 
-            @properties = Property.where(user_id: session.user.id)
-            return render json: {error: 'no properties found'}, status: :not_found if !@properties
+            #properties = Property.where(user_id: session.user.id)
+            #@properties = Property.where(user_id: session.user.id).joins(:bookings).where("end_date > ?", Date.today)
+            #@properties = Property.where(user_id: session.user.id).extract_associated(:bookings)
+            properties = Property.where(user_id: session.user.id)#.joins(:bookings)
+            return render json: {error: 'no properties found'}, status: :not_found if !properties
 
             
-            #@bookings = Bookings.where(property_id: @properties)
-            #return render json: {error: 'properties do not have any bookings'}, status: :not_found if !@bookings
+            @bookings = Booking.where(property: properties).order(start_date: :asc)
+            return render json: {error: 'properties do not have any bookings'}, status: :not_found if !@bookings
 
             render 'api/bookings/byuser'
 

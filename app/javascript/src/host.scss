@@ -1,9 +1,8 @@
-.property {
-  .property-image {
-    padding-top: calc(2 / 3 * 100%); /* aspect ratio 3:2 */
-    background-size: cover;
-    background-position: center;
-  }
+.property-image {
+  min-height: 15vh;
+  max-height: 15vh;
+  background-size: cover;
+  background-position: center;
 }
 .container {
   min-height: 87vh;
