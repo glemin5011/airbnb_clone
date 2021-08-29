@@ -2,7 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Layout from "@src/layout";
-//import { handleErrors } from "./fetchHelper";
+import { handleErrors, safeCredentialsForm } from "../fetchHelper";
 
 import "./add.scss";
 
@@ -30,7 +30,6 @@ class Add extends React.Component {
   };
   handlePropertyTypeChange = (event) => {
     this.setState({ property_type: event.target.value });
-    console.log(this.state.property_type);
   };
   handleCityChange = (event) => {
     this.setState({ city: event.target.value });
@@ -39,7 +38,7 @@ class Add extends React.Component {
     this.setState({ country: event.target.value });
   };
   handlePriceChange = (event) => {
-    this.setState({ price: event.target.value });
+    this.setState({ price_per_night: event.target.value });
   };
 
   submitProperty = (e) => {
@@ -50,20 +49,25 @@ class Add extends React.Component {
       e.preventDefault();
     }
 
+    let formData = new FormData();
+
+    var image = document.getElementById("addPhoto");
+
+    for (let i = 0; i < image.files.length; i++) {
+      formData.append("property[images][]", image.files[i]);
+    }
+
+    formData.set("property[title]", title);
+    formData.set("property[property_type]", property_type);
+    formData.set("property[city]", city);
+    formData.set("property[country]", country);
+    formData.set("property[price_per_night]", price_per_night);
+
     fetch(
       `/api/myproperties/add`,
-      safeCredentials({
+      safeCredentialsForm({
         method: "POST",
-        body: JSON.stringify({
-          property: {
-            title: title,
-            property_type: property_type,
-            city: city,
-            country: country,
-            price_per_night: price_per_night,
-            image_url: image_url,
-          },
-        }),
+        body: formData,
       })
     )
       .then(handleErrors)
@@ -159,7 +163,12 @@ class Add extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="addPhoto">Add property photo</label>
-              <input type="file" className="form-control-file" id="addPhoto" />
+              <input
+                type="file"
+                className="form-control-file"
+                id="addPhoto"
+                accept="image/*"
+              />
             </div>
             <button type="submit" className="btn btn-primary">
               Submit new property

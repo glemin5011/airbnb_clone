@@ -40,6 +40,12 @@ gem 'bcrypt', '~> 3.1.13'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.6', require: false
 
+#image processing
+gem "image_processing", ">= 1.2"
+
+gem 'aws-sdk', '~> 3.0'
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.1.1', platforms: [:mri, :mingw, :x64_mingw]
