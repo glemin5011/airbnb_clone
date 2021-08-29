@@ -15,7 +15,11 @@ class Add extends React.Component {
       city: "",
       country: "",
       price_per_night: "",
-      image_url: "",
+      description: "",
+      bedrooms: 1,
+      beds: 1,
+      baths: 1,
+      max_guests: 1,
       loading: true,
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -23,6 +27,11 @@ class Add extends React.Component {
     this.handleCityChange = this.handleCityChange.bind(this);
     this.handleCountryChange = this.handleCountryChange.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleBedroomChange = this.handleBedroomChange.bind(this);
+    this.handleBedChange = this.handleBedChange.bind(this);
+    this.handleBathChange = this.handleBathChange.bind(this);
+    this.handleMaxGuestChange = this.handleMaxGuestChange.bind(this);
   }
 
   handleTitleChange = (event) => {
@@ -40,10 +49,35 @@ class Add extends React.Component {
   handlePriceChange = (event) => {
     this.setState({ price_per_night: event.target.value });
   };
+  handleDescriptionChange = (event) => {
+    this.setState({ description: event.target.value });
+  };
+  handleBedroomChange = (event) => {
+    this.setState({ bedrooms: event.target.value });
+  };
+  handleBedChange = (event) => {
+    this.setState({ beds: event.target.value });
+  };
+  handleBathChange = (event) => {
+    this.setState({ baths: event.target.value });
+  };
+  handleMaxGuestChange = (event) => {
+    this.setState({ max_guests: event.target.value });
+  };
 
   submitProperty = (e) => {
-    const { title, property_type, city, country, price_per_night, image_url } =
-      this.state;
+    const {
+      title,
+      property_type,
+      city,
+      country,
+      price_per_night,
+      description,
+      max_guests,
+      bedrooms,
+      beds,
+      baths,
+    } = this.state;
 
     if (e) {
       e.preventDefault();
@@ -58,10 +92,15 @@ class Add extends React.Component {
     }
 
     formData.set("property[title]", title);
-    formData.set("property[property_type]", property_type);
+    formData.set("property[description]", description);
     formData.set("property[city]", city);
     formData.set("property[country]", country);
+    formData.set("property[property_type]", property_type);
     formData.set("property[price_per_night]", price_per_night);
+    formData.set("property[max_guests]", max_guests);
+    formData.set("property[bedrooms]", bedrooms);
+    formData.set("property[beds]", beds);
+    formData.set("property[baths]", baths);
 
     fetch(
       `/api/myproperties/add`,
@@ -72,7 +111,7 @@ class Add extends React.Component {
     )
       .then(handleErrors)
       .then((response) => {
-        console.log(response);
+        window.location = `/property/${response.property.id}`;
       })
       .catch((error) => {
         console.log(error);
@@ -99,6 +138,7 @@ class Add extends React.Component {
                   placeholder="Beautiful colonial-era townhouse in Georgetown"
                   value={this.state.title}
                   onChange={this.handleTitleChange}
+                  maxLength="70"
                 />
               </div>
             </div>
@@ -111,9 +151,9 @@ class Add extends React.Component {
                   onChange={this.handlePropertyTypeChange}
                   value={this.state.property_type}
                 >
-                  <option>Shared room in apartment</option>
-                  <option>Private room in apartment</option>
-                  <option>Whole apartment</option>
+                  <option>Shared Room In Apartment</option>
+                  <option>Private Room In Apartment</option>
+                  <option>Whole Apartment</option>
                 </select>
               </div>
               <div className="form-group col-md-6">
@@ -128,14 +168,79 @@ class Add extends React.Component {
                 />
               </div>
             </div>
-            <div className="form-group">
-              <label htmlFor="inputAddress">Address</label>
-              <input
-                type="text"
-                className="form-control"
-                id="inputAddress"
-                placeholder="1234 Main St"
-              />
+            <div className="form-row">
+              <div className="form-group col-md-3">
+                <label htmlFor="inputBedroom">Bedrooms</label>
+                <select
+                  id="inputBedroom"
+                  className="form-control"
+                  onChange={this.handleBedroomChange}
+                  value={this.state.bedrooms}
+                  type="number"
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </div>
+              <div className="form-group col-md-3">
+                <label htmlFor="inputBed">Beds</label>
+                <select
+                  id="inputBed"
+                  className="form-control"
+                  onChange={this.handleBedChange}
+                  value={this.state.beds}
+                  type="number"
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </div>
+              <div className="form-group col-md-3">
+                <label htmlFor="inputBath">Baths</label>
+                <select
+                  id="inputBath"
+                  className="form-control"
+                  onChange={this.handleBathChange}
+                  value={this.state.baths}
+                  type="number"
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </div>
+              <div className="form-group col-md-3">
+                <label htmlFor="inputMaxGuests">Max guests</label>
+                <select
+                  id="inputMaxGuests"
+                  className="form-control"
+                  onChange={this.handleMaxGuestChange}
+                  value={this.state.max_guests}
+                  type="number"
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                </select>
+              </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
@@ -147,6 +252,7 @@ class Add extends React.Component {
                   placeholder="New York City"
                   onChange={this.handleCityChange}
                   value={this.state.city}
+                  maxLength="200"
                 />
               </div>
               <div className="form-group col-md-6">
@@ -158,6 +264,20 @@ class Add extends React.Component {
                   placeholder="US"
                   onChange={this.handleCountryChange}
                   value={this.state.country}
+                  maxLength="200"
+                />
+              </div>
+              <div className="form-group col-md-12">
+                <label htmlFor="inputDescription">Description</label>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  rows="10"
+                  id="inputDescription"
+                  placeholder="A wonderful room in an apartment that is conveniently placed near New York City's best sights..."
+                  onChange={this.handleDescriptionChange}
+                  value={this.state.description}
+                  maxLength="2000"
                 />
               </div>
             </div>
