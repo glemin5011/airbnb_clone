@@ -14,4 +14,10 @@ class Property < ApplicationRecord
     #validates :beds, presence: true, numericality: { only_integer: true, less_than: 20 }
     #validates :baths, presence: true, numericality: { only_integer: true, less_than: 20 }
     validates :user, presence: true
+
+    #def image_url
+   #     if image.attached?
+    #      image.blob.service_url
+     #   end
+   # end
 end
