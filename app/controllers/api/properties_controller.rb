@@ -31,7 +31,7 @@ module Api
             return render json: { error: 'user is not logged in'}, status: :unauthorized if !session
             
             begin
-                @property = Property.create({user_id: session.user.id, title: params[:property][:title], city: params[:property][:city], country: params[:property][:country], property_type: params[:property][:property_type], price_per_night: params[:property][:price_per_night], images: params[:property][:images] })
+                @property = Property.create({user_id: session.user.id, title: params[:property][:title], city: params[:property][:city], country: params[:property][:country], property_type: params[:property][:property_type], price_per_night: params[:property][:price_per_night], image: params[:property][:image] })
 
                 render 'api/properties/add', status: :created
             rescue ArgumentError => e
@@ -42,7 +42,7 @@ module Api
         private
 
         def add_params
-        params.require(:property).permit(:title, :city, :country, :property_type, :price_per_night, images: [])
+        params.require(:property).permit(:title, :city, :country, :property_type, :price_per_night, :image)
         end
     end
 end

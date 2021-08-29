@@ -16,6 +16,7 @@ class Myproperties extends React.Component {
     fetch(`/api/myproperties`)
       .then(handleErrors)
       .then((data) => {
+        console.log(data);
         this.setState({
           properties: data.properties,
           loading: false,

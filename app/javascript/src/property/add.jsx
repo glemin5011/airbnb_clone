@@ -54,7 +54,7 @@ class Add extends React.Component {
     var image = document.getElementById("addPhoto");
 
     for (let i = 0; i < image.files.length; i++) {
-      formData.append("property[images][]", image.files[i]);
+      formData.append("property[image]", image.files[i]);
     }
 
     formData.set("property[title]", title);
