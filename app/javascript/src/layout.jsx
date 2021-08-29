@@ -25,6 +25,11 @@ const Layout = (props) => {
                 Host
               </a>
             </li>
+            <li>
+              <a className="nav-link" href="/myproperties">
+                My properties
+              </a>
+            </li>
           </ul>
         </div>
       </nav>

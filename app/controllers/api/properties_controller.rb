@@ -14,5 +14,20 @@ module Api
             render 'api/properties/show', status: :ok
         end
 
+        def myproperties
+            token = cookies.signed[:airbnb_session_token]
+            session = Session.find_by(token: token)
+            return render json: { error: 'user is not logged in'}, status: :unauthorized if !session
+
+            @properties = Property.where(user_id: session.user.id)
+            return render json: {error: 'no properties found'}, status: :not_found if !@properties
+
+            render 'api/properties/myproperties'
+        end
+
+        def add
+
+        end
+
     end
 end

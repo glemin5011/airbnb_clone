@@ -7,18 +7,21 @@ Rails.application.routes.draw do
   get '/trips' => 'static_pages#trips'
   get '/host' => 'static_pages#host'
   get '/myproperties' => 'static_pages#myproperties'
+  get '/myproperties/add' => 'static_pages#add'
 
   namespace :api do
     # Add routes below this line
     resources :users, only: [:create]
     resources :sessions, only: [:create, :destroy]
-    resources :properties, only: [:index, :show]
+    resources :properties, only: [:index, :show, :myproperties]
     resources :bookings, only: [:create, :show, :index, :byuser]
     resources :charges, only: [:create]
 
     get '/authenticated' => 'sessions#authenticated'
     get '/properties/:id/bookings' => 'bookings#get_property_bookings'
     get '/host/bookings' => 'bookings#byuser'
+    get '/myproperties' => 'properties#myproperties'
+    get '/myproperties/add' => 'properties#add'
    
 
 
