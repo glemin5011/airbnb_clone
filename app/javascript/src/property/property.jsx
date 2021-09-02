@@ -9,6 +9,7 @@ class Property extends React.Component {
   state = {
     property: {},
     loading: true,
+    authenticated: false,
   };
 
   componentDidMount() {
@@ -20,10 +21,18 @@ class Property extends React.Component {
           loading: false,
         });
       });
+
+    fetch("/api/authenticated")
+      .then(handleErrors)
+      .then((data) => {
+        this.setState({
+          authenticated: data.authenticated,
+        });
+      });
   }
 
   render() {
-    const { property, loading } = this.state;
+    const { property, loading, authenticated } = this.state;
 
     if (loading) {
       return <p>Loading...</p>;
@@ -83,6 +92,7 @@ class Property extends React.Component {
               <BookingWidget
                 property_id={id}
                 price_per_night={price_per_night}
+                authenticated={authenticated}
               />
             </div>
           </div>

@@ -8,7 +8,7 @@ import "react-dates/lib/css/_datepicker.css";
 
 class BookingWidget extends React.Component {
   state = {
-    authenticated: false,
+    //authenticated: false,
     existingBookings: [],
     startDate: null,
     endDate: null,
@@ -18,13 +18,15 @@ class BookingWidget extends React.Component {
   };
 
   componentDidMount() {
-    fetch("/api/authenticated")
+    /*Authentication is abstracted to property.jsx parent and then passed down as props to reduce API calls*/
+
+    /*fetch("/api/authenticated")
       .then(handleErrors)
       .then((data) => {
         this.setState({
           authenticated: data.authenticated,
         });
-      });
+      });*/
     this.getPropertyBookings();
   }
 
@@ -101,7 +103,9 @@ class BookingWidget extends React.Component {
     ).length > 0;
 
   render() {
-    const { authenticated, startDate, endDate, focusedInput } = this.state;
+    const { startDate, endDate, focusedInput } = this.state;
+    const { authenticated } = this.props;
+    console.log(authenticated);
     if (!authenticated) {
       return (
         <div className="border p-4 mb-4">
