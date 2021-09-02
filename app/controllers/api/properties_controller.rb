@@ -38,10 +38,28 @@ module Api
                 render json: {error: e.message}, status: :bad_request 
             end
         end
+
+        def update 
+            token = cookies.signed[:airbnb_session_token]
+            session = Session.find_by(token: token)
+            
+            return render json: { error: 'user is not logged in'}, status: :unauthorized if !session
+            
+            begin
+                user = session.user
+                @property = user.properties.find_by(id: params[:id])
+                
+                return render 'not_found', status: :not_found if not @property
+                return render 'bad_request', status: :bad_request if not @property.update(property_params)
+                render 'api/properties/show', status: :ok
+            rescue ArgumentError => e
+                render json: {error: e.message}, status: :bad_request 
+            end
+        end
         
         private
 
-        def add_params
+        def property_params
         params.require(:property).permit(:title, :description, :city, :country, :property_type, :price_per_night, :max_guests, :bedrooms, :beds, :baths, :image)
         end
     end

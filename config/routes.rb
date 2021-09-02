@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     # Add routes below this line
     resources :users, only: [:create]
     resources :sessions, only: [:create, :destroy]
-    resources :properties, only: [:index, :show, :myproperties, :add]
+    resources :properties, only: [:index, :show, :myproperties, :add, :update]
     resources :bookings, only: [:create, :show, :index, :byuser]
     resources :charges, only: [:create]
 
@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get '/host/bookings' => 'bookings#byuser'
     get '/myproperties' => 'properties#myproperties'
     post '/myproperties/add' => 'properties#add'
+    put '/properties/:id/update/' => 'properties#update'
    
 
 
