@@ -11,12 +11,16 @@ json.booking do
         json.country @booking.property.country
         json.property_type @booking.property.property_type
         json.price_per_night @booking.property.price_per_night
-        json.image_url @booking.property.image_url
         json.user_id @booking.property.user_id
         json.description @booking.property.description
         json.bedrooms @booking.property.bedrooms
         json.beds @booking.property.beds
         json.baths @booking.property.baths
+        if @booking.property.image.attached?
+            json.image_url @booking.property.image.blob.service_url
+          else
+            json.image_url @booking.property.image_url
+        end
     end
 
     json.charges @booking.charges

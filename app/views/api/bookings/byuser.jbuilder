@@ -12,7 +12,11 @@ json.bookings do
         json.country booking.property.country
         json.property_type booking.property.property_type
         json.price_per_night booking.property.price_per_night
-        json.image_url booking.property.image_url
+        if booking.property.image.attached?
+            json.image_url booking.property.image.blob.service_url
+          else
+            json.image_url booking.property.image_url
+        end
         json.paid booking.paid
         json.charges booking.charges
     end
