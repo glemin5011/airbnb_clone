@@ -32,19 +32,25 @@ class Myproperties extends React.Component {
     if (authenticated === false) {
       return (
         <Layout>
-          <div className="container">
+          <div className="container pt-4">
             <div className="row">
-              <div className="col-12 col-md-9 col-lg-6 mx-auto my-4">
+              <div className="col-10">
                 <h4 className="mb-1">My properties</h4>
-                <div className="border p-4">
-                  <p className="mb-0">
-                    Please{" "}
-                    <a href={`/login?redirect_url=${window.location.pathname}`}>
-                      log in
-                    </a>{" "}
-                    to see your properties.
-                  </p>
-                </div>
+                <p className="text-secondary mb-3">
+                  Find guests for your properties all around the world
+                </p>
+              </div>
+            </div>
+
+            <div className="col-12 my-4">
+              <div className="border p-4">
+                <p className="mb-0">
+                  Please{" "}
+                  <a href={`/login?redirect_url=${window.location.pathname}`}>
+                    log in
+                  </a>{" "}
+                  to see your properties.
+                </p>
               </div>
             </div>
           </div>
