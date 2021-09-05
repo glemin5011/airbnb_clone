@@ -31,6 +31,14 @@ const Layout = (props) => {
               </a>
             </li>
           </ul>
+          <ul className="navbar-nav ml-auto">
+            {" "}
+            <li>
+              <a className="nav-link text-danger" href="/login">
+                Log in
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
       {props.children}

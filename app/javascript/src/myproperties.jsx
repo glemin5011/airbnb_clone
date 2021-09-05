@@ -10,6 +10,7 @@ class Myproperties extends React.Component {
   state = {
     properties: [],
     loading: true,
+    authenticated: false,
   };
 
   componentDidMount() {
@@ -20,12 +21,33 @@ class Myproperties extends React.Component {
         this.setState({
           properties: data.properties,
           loading: false,
+          authenticated: true,
         });
       });
   }
 
   render() {
-    const { properties, loading } = this.state;
+    const { properties, loading, authenticated } = this.state;
+
+    if (authenticated === false) {
+      return (
+        <Layout>
+          <div className="container">
+            <div className="row">
+              <div className="col-12 col-md-9 col-lg-6 mx-auto my-4">
+                <h4 className="mb-1">My properties</h4>
+                <div className="border p-4">
+                  <p className="mb-0">
+                    Please click here to log in to continue.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Layout>
+      );
+    }
+
     return (
       <Layout>
         <div className="container pt-4">
