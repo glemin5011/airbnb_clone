@@ -38,7 +38,11 @@ class Myproperties extends React.Component {
                 <h4 className="mb-1">My properties</h4>
                 <div className="border p-4">
                   <p className="mb-0">
-                    Please click here to log in to continue.
+                    Please{" "}
+                    <a href={`/login?redirect_url=${window.location.pathname}`}>
+                      log in
+                    </a>{" "}
+                    to see your properties.
                   </p>
                 </div>
               </div>
